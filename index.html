@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verpex Hosting</title>
+<meta name="description" content="Fast, secure web hosting with free SSL, daily backups and 24/7 support. Launch your website with Verpex today.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff; --bg-soft:#f5f7fb; --ink:#0d1330; --muted:#5a6383; --line:#e4e8f2;
+  --brand:#5b3df5; --brand-2:#00c2a8; --brand-ink:#ffffff; --card:#ffffff;
+  --hero-a:#0d1330; --hero-b:#2a1a8a;
+  --radius:18px; --shadow:0 10px 30px rgba(13,19,48,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0a0e22; --bg-soft:#10162f; --ink:#eef1fb; --muted:#a3abc8; --line:#222b4d;
+    --card:#131a38; --shadow:0 10px 30px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 26px;border-radius:999px;font-weight:700;font-size:15px;transition:transform .15s,box-shadow .15s,background .15s;cursor:pointer;border:0}
+.btn-primary{background:var(--brand);color:var(--brand-ink);box-shadow:0 8px 24px rgba(91,61,245,.35)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(91,61,245,.45)}
+.btn-ghost{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.25)}
+.btn-ghost:hover{background:rgba(255,255,255,.18)}
+.eyebrow{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--brand)}
+h1,h2,h3{line-height:1.15;letter-spacing:-.02em}
+section{padding:96px 0}
+.section-head{text-align:center;max-width:640px;margin:0 auto 56px}
+.section-head h2{font-size:clamp(28px,4vw,42px);margin:10px 0 14px}
+.section-head p{color:var(--muted);font-size:17px}
+
+/* Nav */
+header{position:sticky;top:0;z-index:50;background:rgba(13,19,48,.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.08)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:70px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:22px;color:#fff}
+.logo-mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--brand),var(--brand-2));display:grid;place-items:center}
+.nav-links{display:flex;gap:32px;color:rgba(255,255,255,.8);font-weight:500;font-size:15px}
+.nav-links a:hover{color:#fff}
+.nav .btn{padding:10px 20px}
+@media (max-width:820px){.nav-links{display:none}}
+
+/* Hero */
+.hero{background:radial-gradient(1200px 600px at 80% -10%,rgba(0,194,168,.25),transparent 60%),linear-gradient(160deg,var(--hero-a),var(--hero-b));color:#fff;padding:90px 0 110px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);font-size:13px;font-weight:600}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:var(--brand-2);box-shadow:0 0 0 4px rgba(0,194,168,.25)}
+.hero h1{font-size:clamp(36px,5.6vw,62px);margin:22px 0 20px;font-weight:800}
+.hero h1 span{background:linear-gradient(90deg,#9d8bff,var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{font-size:19px;color:rgba(255,255,255,.78);max-width:540px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin:34px 0 30px}
+.hero-trust{display:flex;flex-wrap:wrap;gap:22px;font-size:14px;color:rgba(255,255,255,.75)}
+.hero-trust div{display:flex;align-items:center;gap:8px}
+.check{color:var(--brand-2);font-weight:800}
+.dash{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:22px;padding:22px;backdrop-filter:blur(8px);box-shadow:0 30px 60px rgba(0,0,0,.3)}
+.dash-top{display:flex;gap:6px;margin-bottom:18px}
+.dash-top i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.25)}
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.stat{background:rgba(255,255,255,.07);border-radius:14px;padding:16px}
+.stat small{color:rgba(255,255,255,.6);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.stat b{display:block;font-size:26px;margin-top:4px}
+.stat b em{font-style:normal;font-size:13px;color:var(--brand-2);margin-left:6px}
+.bars{display:flex;align-items:flex-end;gap:8px;height:110px;background:rgba(255,255,255,.07);border-radius:14px;padding:16px}
+.bars span{flex:1;border-radius:6px 6px 2px 2px;background:linear-gradient(180deg,var(--brand-2),var(--brand))}
+.site-status{display:flex;justify-content:space-between;align-items:center;margin-top:14px;background:rgba(255,255,255,.07);border-radius:14px;padding:14px 16px;font-size:14px}
+.ok{color:var(--brand-2);font-weight:700}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr}.dash{max-width:520px}}
+
+/* Logos strip */
+.strip{padding:34px 0;border-bottom:1px solid var(--line);background:var(--bg)}
+.strip .wrap{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:18px 48px;color:var(--muted);font-weight:700;font-size:15px}
+.strip .wrap span:first-child{font-weight:500;font-size:14px}
+
+/* Features */
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.feature{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px;transition:transform .2s,box-shadow .2s}
+.feature:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.ico{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:rgba(91,61,245,.1);color:var(--brand);margin-bottom:18px}
+.ico svg{width:24px;height:24px}
+.feature h3{font-size:19px;margin-bottom:8px}
+.feature p{color:var(--muted);font-size:15px}
+@media (max-width:900px){.features-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.features-grid{grid-template-columns:1fr}}
+
+/* Pricing */
+#pricing{background:var(--bg-soft)}
+.toggle{display:flex;justify-content:center;margin:-28px 0 44px}
+.toggle-inner{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px}
+.toggle button{border:0;background:transparent;color:var(--muted);font:inherit;font-weight:700;font-size:14px;padding:9px 20px;border-radius:999px;cursor:pointer}
+.toggle button.active{background:var(--brand);color:#fff}
+.toggle .save{color:var(--brand-2);margin-left:4px}
+.toggle button.active .save{color:#c9fff6}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:34px 30px;display:flex;flex-direction:column;position:relative}
+.plan.popular{border:2px solid var(--brand);box-shadow:0 20px 50px rgba(91,61,245,.18)}
+.badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--brand);color:#fff;font-size:12px;font-weight:700;padding:5px 14px;border-radius:999px;letter-spacing:.04em;white-space:nowrap}
+.plan h3{font-size:21px}
+.plan .desc{color:var(--muted);font-size:14px;margin:6px 0 22px}
+.price{display:flex;align-items:baseline;gap:4px;margin-bottom:6px}
+.price b{font-size:46px;font-weight:800;letter-spacing:-.03em}
+.price span{color:var(--muted);font-weight:600}
+.billed{font-size:13px;color:var(--muted);margin-bottom:24px;min-height:20px}
+.plan ul{list-style:none;margin:24px 0 0;display:grid;gap:12px;font-size:15px}
+.plan li{display:flex;gap:10px}
+.plan li::before{content:"✓";color:var(--brand-2);font-weight:800}
+.plan .btn{width:100%}
+.plan:not(.popular) .btn{background:transparent;color:var(--brand);border:2px solid var(--brand);box-shadow:none}
+.plan:not(.popular) .btn:hover{background:var(--brand);color:#fff}
+@media (max-width:900px){.plans{grid-template-columns:1fr;max-width:440px;margin:0 auto}}
+
+/* Locations */
+.loc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.loc{border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;align-items:center;gap:14px;background:var(--card)}
+.loc .flag{font-size:26px}
+.loc b{display:block;font-size:15px}
+.loc small{color:var(--muted);font-size:13px}
+@media (max-width:900px){.loc-grid{grid-template-columns:1fr 1fr}}
+
+/* Testimonials */
+#reviews{background:var(--bg-soft)}
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.quote{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+.stars{color:#ffb547;letter-spacing:2px;margin-bottom:12px}
+.quote p{font-size:15px;margin-bottom:20px}
+.who{display:flex;align-items:center;gap:12px}
+.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;background:linear-gradient(135deg,var(--brand),var(--brand-2))}
+.who b{display:block;font-size:15px}
+.who small{color:var(--muted)}
+@media (max-width:900px){.quotes{grid-template-columns:1fr}}
+
+/* FAQ */
+.faq{max-width:780px;margin:0 auto;display:grid;gap:12px}
+details{border:1px solid var(--line);border-radius:16px;padding:20px 24px;background:var(--card)}
+summary{cursor:pointer;font-weight:700;font-size:17px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:22px;line-height:1;color:var(--brand);transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--muted);margin-top:12px;font-size:15px}
+
+/* CTA */
+.cta{padding:0 0 96px}
+.cta-box{background:linear-gradient(135deg,var(--brand),#2a1a8a 70%);border-radius:28px;padding:64px 40px;text-align:center;color:#fff;position:relative;overflow:hidden}
+.cta-box::before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;background:rgba(0,194,168,.35);filter:blur(90px);top:-200px;right:-120px}
+.cta-box h2{font-size:clamp(28px,4vw,44px);margin-bottom:14px;position:relative}
+.cta-box p{color:rgba(255,255,255,.8);font-size:18px;margin-bottom:30px;position:relative}
+.cta-box .btn{background:#fff;color:var(--brand);position:relative}
+
+/* Footer */
+footer{background:#0a0e22;color:rgba(255,255,255,.65);padding:64px 0 32px;font-size:14px}
+.foot-grid{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:32px;margin-bottom:44px}
+footer h4{color:#fff;font-size:15px;margin-bottom:14px}
+footer ul{list-style:none;display:grid;gap:10px}
+footer a:hover{color:#fff}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+@media (max-width:760px){.foot-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="logo"><span class="logo-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5l8 14 8-14"/></svg></span>Verpex</a>
+    <nav class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#locations">Locations</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a href="#pricing" class="btn btn-primary">Get Started</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="pill"><span class="dot"></span>99.9% uptime guarantee</span>
+      <h1>Web hosting that's <span>fast, secure</span> and built to grow with you</h1>
+      <p class="lead">Launch your website in minutes on blazing-fast servers with free SSL, daily backups and real humans on support 24/7.</p>
+      <div class="hero-cta">
+        <a href="#pricing" class="btn btn-primary">View Plans</a>
+        <a href="#features" class="btn btn-ghost">Explore Features</a>
+      </div>
+      <div class="hero-trust">
+        <div><span class="check">✓</span> Free SSL certificates</div>
+        <div><span class="check">✓</span> Free website migration</div>
+        <div><span class="check">✓</span> 30-day money-back</div>
+      </div>
+    </div>
+    <div class="dash" aria-hidden="true">
+      <div class="dash-top"><i></i><i></i><i></i></div>
+      <div class="stat-row">
+        <div class="stat"><small>Load time</small><b>0.4s<em>-62%</em></b></div>
+        <div class="stat"><small>Uptime</small><b>99.99%</b></div>
+      </div>
+      <div class="bars">
+        <span style="height:40%"></span><span style="height:55%"></span><span style="height:48%"></span><span style="height:70%"></span><span style="height:62%"></span><span style="height:85%"></span><span style="height:78%"></span><span style="height:95%"></span>
+      </div>
+      <div class="site-status"><span>yourwebsite.com</span><span class="ok">● Online</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap">
+    <span>Powered by industry-leading tech</span>
+    <span>LiteSpeed</span><span>NVMe SSD</span><span>Cloudflare CDN</span><span>WordPress</span><span>Let's Encrypt</span>
+  </div>
+</div>
+
+<section id="features">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Why Verpex</span>
+      <h2>Everything your website needs, included</h2>
+      <p>No hidden fees, no complicated add-ons. Just powerful hosting that works from day one.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <h3>Blazing speed</h3>
+        <p>LiteSpeed web servers, NVMe storage and built-in caching keep your pages loading in a flash.</p>
+      </div>
+      <div class="feature">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>Security first</h3>
+        <p>Free SSL, malware scanning and DDoS protection keep you and your visitors safe.</p>
+      </div>
+      <div class="feature">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></div>
+        <h3>Daily backups</h3>
+        <p>Automatic daily backups with one-click restore, so you never lose your work.</p>
+      </div>
+      <div class="feature">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z"/></svg></div>
+        <h3>24/7 expert support</h3>
+        <p>Real hosting experts available around the clock via live chat and tickets.</p>
+      </div>
+      <div class="feature">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></div>
+        <h3>Global data centers</h3>
+        <p>Host your site close to your audience with server locations around the world.</p>
+      </div>
+      <div class="feature">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <h3>Free migration</h3>
+        <p>Moving from another host? Our team transfers your website for free, with zero downtime.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Pricing</span>
+      <h2>Simple plans, honest prices</h2>
+      <p>Pick the plan that fits today and upgrade any time as you grow.</p>
+    </div>
+    <div class="toggle">
+      <div class="toggle-inner" role="tablist">
+        <button data-cycle="monthly">Monthly</button>
+        <button data-cycle="yearly" class="active">Yearly <span class="save">Save 30%</span></button>
+      </div>
+    </div>
+    <div class="plans">
+      <div class="plan">
+        <h3>Starter</h3>
+        <p class="desc">Perfect for a personal site or blog.</p>
+        <div class="price"><b data-m="4.99" data-y="3.49">$3.49</b><span>/mo</span></div>
+        <div class="billed" data-m="Billed monthly" data-y="Billed $41.88 yearly">Billed $41.88 yearly</div>
+        <a href="#" class="btn btn-primary">Choose Starter</a>
+        <ul>
+          <li>1 website</li><li>20 GB NVMe storage</li><li>Free SSL certificate</li><li>Daily backups</li><li>5 email accounts</li>
+        </ul>
+      </div>
+      <div class="plan popular">
+        <span class="badge">MOST POPULAR</span>
+        <h3>Pro</h3>
+        <p class="desc">For growing businesses and online stores.</p>
+        <div class="price"><b data-m="9.99" data-y="6.99">$6.99</b><span>/mo</span></div>
+        <div class="billed" data-m="Billed monthly" data-y="Billed $83.88 yearly">Billed $83.88 yearly</div>
+        <a href="#" class="btn btn-primary">Choose Pro</a>
+        <ul>
+          <li>Unlimited websites</li><li>100 GB NVMe storage</li><li>Free SSL + free domain</li><li>Daily backups</li><li>Unlimited email accounts</li><li>Free CDN</li>
+        </ul>
+      </div>
+      <div class="plan">
+        <h3>Business</h3>
+        <p class="desc">Maximum power for high-traffic sites.</p>
+        <div class="price"><b data-m="17.99" data-y="12.59">$12.59</b><span>/mo</span></div>
+        <div class="billed" data-m="Billed monthly" data-y="Billed $151.08 yearly">Billed $151.08 yearly</div>
+        <a href="#" class="btn btn-primary">Choose Business</a>
+        <ul>
+          <li>Unlimited websites</li><li>Unlimited NVMe storage</li><li>Free SSL + free domain</li><li>Priority support</li><li>Dedicated IP</li><li>Advanced security suite</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="locations">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Locations</span>
+      <h2>Servers close to your visitors</h2>
+      <p>Choose the data center nearest your audience for the lowest latency.</p>
+    </div>
+    <div class="loc-grid">
+      <div class="loc"><span class="flag">🇺🇸</span><div><b>United States</b><small>New York</small></div></div>
+      <div class="loc"><span class="flag">🇬🇧</span><div><b>United Kingdom</b><small>London</small></div></div>
+      <div class="loc"><span class="flag">🇩🇪</span><div><b>Germany</b><small>Frankfurt</small></div></div>
+      <div class="loc"><span class="flag">🇸🇬</span><div><b>Singapore</b><small>Singapore</small></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="reviews">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Reviews</span>
+      <h2>Loved by website owners</h2>
+    </div>
+    <div class="quotes">
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>"Migration was painless and my site loads noticeably faster. Support answered within minutes."</p>
+        <div class="who"><span class="avatar">SL</span><div><b>Sarah L.</b><small>Online store owner</small></div></div>
+      </div>
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>"I manage a dozen client sites on the Pro plan. Reliable, fast and the price is hard to beat."</p>
+        <div class="who"><span class="avatar">DK</span><div><b>David K.</b><small>Web designer</small></div></div>
+      </div>
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>"Setting up WordPress took two clicks. Daily backups give me real peace of mind."</p>
+        <div class="who"><span class="avatar">MR</span><div><b>Maria R.</b><small>Blogger</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>Questions? We've got answers</h2>
+    </div>
+    <div class="faq">
+      <details open><summary>Can I move my existing website to Verpex?</summary><p>Yes. Our migration team will move your website, files, databases and emails for free, with no downtime.</p></details>
+      <details><summary>Is there a money-back guarantee?</summary><p>Every plan comes with a 30-day money-back guarantee. If you're not happy, we'll refund you, no questions asked.</p></details>
+      <details><summary>Do you support WordPress?</summary><p>Absolutely. Install WordPress in one click and enjoy servers optimized for WordPress speed and security.</p></details>
+      <details><summary>Can I upgrade my plan later?</summary><p>Yes, you can upgrade at any time from your dashboard. Your site stays online and we only charge the difference.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <div class="cta-box">
+      <h2>Ready to launch your website?</h2>
+      <p>Join thousands of happy customers and get online today.</p>
+      <a href="#pricing" class="btn">Get Started Now</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#" class="logo" style="margin-bottom:14px"><span class="logo-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5l8 14 8-14"/></svg></span>Verpex</a>
+        <p>Fast, secure and affordable web hosting for everyone.</p>
+      </div>
+      <div><h4>Hosting</h4><ul><li><a href="#">Web Hosting</a></li><li><a href="#">WordPress Hosting</a></li><li><a href="#">Reseller Hosting</a></li><li><a href="#">VPS Hosting</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="#">About</a></li><li><a href="#">Blog</a></li><li><a href="#">Careers</a></li><li><a href="#">Contact</a></li></ul></div>
+      <div><h4>Support</h4><ul><li><a href="#">Help Center</a></li><li><a href="#">Server Status</a></li><li><a href="#">Terms</a></li><li><a href="#">Privacy</a></li></ul></div>
+    </div>
+    <div class="foot-bottom"><span>© <span id="yr">2026</span> Verpex. All rights reserved.</span><span>Made with care for website owners.</span></div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('yr').textContent=new Date().getFullYear();
+document.querySelectorAll('.toggle button').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var cycle=btn.dataset.cycle, key=cycle==='yearly'?'y':'m';
+    document.querySelectorAll('.toggle button').forEach(function(b){b.classList.toggle('active',b===btn)});
+    document.querySelectorAll('.price b').forEach(function(el){el.textContent='$'+el.dataset[key]});
+    document.querySelectorAll('.billed').forEach(function(el){el.textContent=el.dataset[key]});
+  });
+});
+</script>
+</body>
+</html>
