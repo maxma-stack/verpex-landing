@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verpex App Platform - Deploy from GitHub in one click</title>
+<meta name="description" content="Verpex App Platform: connect your GitHub repo and deploy in one click. Every push to your branch goes live automatically, with free SSL, daily backups and 24/7 support.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff; --bg-soft:#f5f7fb; --ink:#0d1330; --muted:#5a6383; --line:#e4e8f2;
+  --brand:#5b3df5; --brand-2:#00c2a8; --brand-ink:#ffffff; --card:#ffffff;
+  --hero-a:#0d1330; --hero-b:#2a1a8a;
+  --radius:18px; --shadow:0 10px 30px rgba(13,19,48,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0a0e22; --bg-soft:#10162f; --ink:#eef1fb; --muted:#a3abc8; --line:#222b4d;
+    --card:#131a38; --shadow:0 10px 30px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 26px;border-radius:999px;font-weight:700;font-size:15px;transition:transform .15s,box-shadow .15s,background .15s;cursor:pointer;border:0}
+.btn-primary{background:var(--brand);color:var(--brand-ink);box-shadow:0 8px 24px rgba(91,61,245,.35)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(91,61,245,.45)}
+.btn-ghost{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.25)}
+.btn-ghost:hover{background:rgba(255,255,255,.18)}
+
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(13,19,48,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:70px;color:#fff}
+.logo{display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:20px}
+.logo-mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--brand),#8b6dff);display:grid;place-items:center}
+.nav-links{display:flex;gap:30px;font-size:15px;font-weight:500;opacity:.9}
+.nav-links a:hover{opacity:1;color:#fff}
+.nav .btn{padding:10px 20px;font-size:14px}
+
+/* hero */
+.hero{background:radial-gradient(1200px 600px at 80% -10%,rgba(91,61,245,.55),transparent 60%),linear-gradient(160deg,var(--hero-a),var(--hero-b));color:#fff;padding:90px 0 100px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);font-size:13px;font-weight:600;margin-bottom:22px}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:var(--brand-2);box-shadow:0 0 0 4px rgba(0,194,168,.25)}
+.hero h1{font-size:clamp(38px,5.4vw,62px);line-height:1.05;font-weight:800;letter-spacing:-.02em;margin-bottom:22px}
+.grad{background:linear-gradient(90deg,#a99bff,var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{font-size:18px;color:rgba(255,255,255,.78);max-width:540px;margin-bottom:32px}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:28px}
+.checks{display:flex;gap:22px;flex-wrap:wrap;font-size:14px;color:rgba(255,255,255,.75)}
+.checks span::before{content:"\2713";color:var(--brand-2);font-weight:800;margin-right:7px}
+
+/* terminal mock */
+.term{background:rgba(9,12,30,.85);border:1px solid rgba(255,255,255,.12);border-radius:16px;box-shadow:0 30px 70px rgba(0,0,0,.45);overflow:hidden;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13.5px}
+.term-bar{display:flex;align-items:center;gap:7px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.55);font-size:12px}
+.term-bar i{width:11px;height:11px;border-radius:50%;background:#ff5f57;display:inline-block}
+.term-bar i:nth-child(2){background:#febc2e}.term-bar i:nth-child(3){background:#28c840}
+.term-bar b{margin-left:10px;font-weight:400}
+.term-body{padding:20px 20px 22px;line-height:1.9;color:#cfd5f0;min-height:290px}
+.term-body .c{color:#7d86ad}
+.term-body .g{color:var(--brand-2)}
+.term-body .p{color:#a99bff}
+.term-body .line{opacity:0;transform:translateY(4px);animation:show .35s forwards}
+@keyframes show{to{opacity:1;transform:none}}
+.live{display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding:12px 14px;border-radius:10px;background:rgba(0,194,168,.1);border:1px solid rgba(0,194,168,.3);color:#e6fffb;font-family:"Plus Jakarta Sans",sans-serif;font-size:14px;font-weight:600}
+.live em{font-style:normal;display:inline-flex;align-items:center;gap:7px;color:var(--brand-2)}
+.live em::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--brand-2)}
+
+/* strip */
+.strip{border-bottom:1px solid var(--line);background:var(--bg-soft)}
+.strip .wrap{display:flex;justify-content:center;gap:44px;flex-wrap:wrap;padding:22px 20px;font-weight:700;color:var(--muted);font-size:15px}
+.strip span{display:inline-flex;align-items:center;gap:9px}
+.strip svg{width:20px;height:20px}
+
+/* sections */
+section.block{padding:96px 0}
+section.alt{background:var(--bg-soft)}
+.eyebrow{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--brand);margin-bottom:12px}
+.head{text-align:center;max-width:680px;margin:0 auto 56px}
+.head h2{font-size:clamp(30px,3.6vw,42px);line-height:1.15;font-weight:800;letter-spacing:-.015em;margin-bottom:14px}
+.head p{color:var(--muted);font-size:17px}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;counter-reset:s}
+.step{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px 28px;box-shadow:var(--shadow)}
+.step::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--brand),#8b6dff);color:#fff;font-weight:800;margin-bottom:18px}
+.step h3{font-size:19px;margin-bottom:8px}
+.step p{color:var(--muted);font-size:15px}
+.step code{font-family:"JetBrains Mono",monospace;font-size:13px;background:var(--bg-soft);border:1px solid var(--line);padding:1px 6px;border-radius:6px}
+
+/* features */
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.feat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px;transition:transform .15s,box-shadow .15s}
+.feat:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.ico{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:rgba(91,61,245,.1);color:var(--brand);margin-bottom:16px}
+.ico svg{width:22px;height:22px}
+.feat h3{font-size:18px;margin-bottom:6px}
+.feat p{color:var(--muted);font-size:15px}
+
+/* stacks */
+.stacks{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.stack{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;text-align:center}
+.stack .badge{width:56px;height:56px;margin:0 auto 14px;border-radius:14px;display:grid;place-items:center;font-weight:800;font-size:15px;color:#fff}
+.stack h4{font-size:17px;margin-bottom:4px}
+.stack p{color:var(--muted);font-size:14px}
+
+/* compare */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:960px;margin:0 auto}
+.col{border-radius:var(--radius);padding:30px;border:1px solid var(--line);background:var(--card)}
+.col h3{font-size:18px;margin-bottom:16px}
+.col ul{list-style:none;display:grid;gap:12px}
+.col li{display:flex;gap:10px;font-size:15px;color:var(--muted)}
+.col.old li::before{content:"\2715";color:#e0566b;font-weight:800}
+.col.new{border-color:var(--brand);box-shadow:0 14px 40px rgba(91,61,245,.15)}
+.col.new li{color:var(--ink)}
+.col.new li::before{content:"\2713";color:var(--brand-2);font-weight:800}
+
+/* faq */
+.faq{max-width:780px;margin:0 auto;display:grid;gap:12px}
+details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px}
+summary{cursor:pointer;font-weight:700;font-size:16px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--brand);font-size:22px;line-height:1}
+details[open] summary::after{content:"\2212"}
+details p{color:var(--muted);margin-top:10px;font-size:15px}
+
+/* cta */
+.cta{padding:0 0 96px}
+.cta-box{border-radius:28px;padding:60px 40px;text-align:center;color:#fff;background:radial-gradient(800px 400px at 50% -20%,rgba(0,194,168,.35),transparent 60%),linear-gradient(135deg,var(--hero-b),var(--brand))}
+.cta-box h2{font-size:clamp(28px,3.4vw,40px);font-weight:800;margin-bottom:12px}
+.cta-box p{color:rgba(255,255,255,.82);margin-bottom:28px;font-size:17px}
+.cta-box .btn-primary{background:#fff;color:var(--hero-b);box-shadow:none}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:56px 0 30px;background:var(--bg-soft)}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px;margin-bottom:36px}
+.foot-grid p{color:var(--muted);font-size:14px;max-width:260px}
+.foot-grid h4{font-size:14px;margin-bottom:12px}
+.foot-grid ul{list-style:none;display:grid;gap:8px}
+.foot-grid li a{color:var(--muted);font-size:14px}
+.foot-grid li a:hover{color:var(--brand)}
+.foot-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;border-top:1px solid var(--line);padding-top:22px;color:var(--muted);font-size:13px}
+
+@media (max-width:960px){
+  .hero-grid,.compare{grid-template-columns:1fr}
+  .steps,.features{grid-template-columns:1fr 1fr}
+  .stacks{grid-template-columns:1fr 1fr}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
+}
+@media (max-width:600px){
+  .steps,.features{grid-template-columns:1fr}
+  .hero{padding:64px 0 72px}
+  section.block{padding:72px 0}
+  .cta-box{padding:44px 22px}
+  .term{font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="../" class="logo"><span class="logo-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5l8 14 8-14"/></svg></span>Verpex</a>
+    <nav class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#features">Features</a>
+      <a href="#stacks">Stacks</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a href="../#pricing" class="btn btn-primary">Start deploying</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="pill"><span class="dot"></span>Verpex App Platform</span>
+      <h1>Deploy from GitHub in <span class="grad">one click</span></h1>
+      <p class="lead">Connect your repository, pick a branch and you're live. Every push ships automatically, on fast servers with free SSL, daily backups and real humans on support 24/7.</p>
+      <div class="hero-ctas">
+        <a href="../#pricing" class="btn btn-primary">Connect GitHub</a>
+        <a href="#how" class="btn btn-ghost">See how it works</a>
+      </div>
+      <div class="checks"><span>No servers to manage</span><span>Auto deploy on push</span><span>Free SSL</span></div>
+    </div>
+
+    <div class="term" aria-label="Example deploy log">
+      <div class="term-bar"><i></i><i></i><i></i><b>deploy: your-repo @ main</b></div>
+      <div class="term-body" id="term">
+        <div class="line"><span class="p">$</span> git push origin main</div>
+        <div class="line c">Webhook received from GitHub</div>
+        <div class="line">Fetching <span class="g">main@ce4aa96</span>...</div>
+        <div class="line">HEAD is now at ce4aa96 Update landing page</div>
+        <div class="line">Linking release to <span class="g">current</span></div>
+        <div class="line">Issuing SSL certificate... <span class="g">done</span></div>
+        <div class="line"><span class="g">&#10003; Deployed</span> <span class="c">in seconds</span></div>
+        <div class="live line"><span>yourwebsite.com</span><em>Live</em></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap">
+    <span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12a11.5 11.5 0 0 0 7.9 10.9c.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .4.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z"/></svg>GitHub integration</span>
+    <span>99.9% uptime guarantee</span>
+    <span>Free SSL certificates</span>
+    <span>Daily backups</span>
+    <span>24/7 human support</span>
+  </div>
+</div>
+
+<section class="block" id="how">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">How it works</span>
+      <h2>From repo to live site in three steps</h2>
+      <p>No FTP, no SSH, no build servers to babysit. Git is your deploy button.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <h3>Connect your repo</h3>
+        <p>Sign in with GitHub and choose the repository you want to ship. Public or private, both work.</p>
+      </div>
+      <div class="step">
+        <h3>Pick a branch</h3>
+        <p>Select the branch to deploy, usually <code>main</code>, and turn on auto deploy. Your site files go in <code>public_html/</code>.</p>
+      </div>
+      <div class="step">
+        <h3>Push and you're live</h3>
+        <p>Click Deploy now, or just <code>git push</code>. Each commit is released automatically and served on your domain.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block alt" id="features">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">Features</span>
+      <h2>Everything you need to ship with confidence</h2>
+      <p>The workflow developers love, on hosting that's built to grow with you.</p>
+    </div>
+    <div class="features">
+      <div class="feat">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <h3>Auto deploy on push</h3>
+        <p>Every push to your chosen branch triggers a fresh deploy. No manual uploads, ever.</p>
+      </div>
+      <div class="feat">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="12" r="3"/><path d="M6 9v6M9 6h3a3 3 0 0 1 3 3v0"/></svg></div>
+        <h3>Release per commit</h3>
+        <p>Each deploy is checked out by commit, so you always know exactly what code is live.</p>
+      </div>
+      <div class="feat">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div>
+        <h3>Readable deploy logs</h3>
+        <p>See every step of every deploy right in your control panel, so issues are easy to spot.</p>
+      </div>
+      <div class="feat">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+        <h3>Free SSL, automatically</h3>
+        <p>HTTPS is set up for your domain out of the box, so your app is secure from the first deploy.</p>
+      </div>
+      <div class="feat">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="6" rx="2"/><rect x="3" y="14" width="18" height="6" rx="2"/><path d="M7 7h.01M7 17h.01"/></svg></div>
+        <h3>Worker processes</h3>
+        <p>Run persistent app instances and background workers that restart automatically on every deploy.</p>
+      </div>
+      <div class="feat">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></div>
+        <h3>Daily backups</h3>
+        <p>Your files and databases are backed up every day, so you can experiment without worry.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="stacks">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">Stacks</span>
+      <h2>Bring the stack you already use</h2>
+      <p>Static sites deploy as is. Apps run as worker processes alongside your site.</p>
+    </div>
+    <div class="stacks">
+      <div class="stack"><div class="badge" style="background:#e34f26">HTML</div><h4>Static sites</h4><p>HTML, CSS and JS, no build step needed</p></div>
+      <div class="stack"><div class="badge" style="background:#777bb3">PHP</div><h4>PHP</h4><p>Laravel, WordPress and custom PHP apps</p></div>
+      <div class="stack"><div class="badge" style="background:#3c873a">Node</div><h4>Node.js</h4><p>Express, Next.js and other Node apps</p></div>
+      <div class="stack"><div class="badge" style="background:#3572a5">Py</div><h4>Python</h4><p>Flask, Django and FastAPI apps</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block alt">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">Why switch</span>
+      <h2>Stop uploading. Start shipping.</h2>
+    </div>
+    <div class="compare">
+      <div class="col old">
+        <h3>The old way</h3>
+        <ul>
+          <li>Drag files over FTP and hope nothing breaks</li>
+          <li>Guess which version is actually live</li>
+          <li>Repeat the whole thing for every small fix</li>
+          <li>Set up SSL and servers by hand</li>
+        </ul>
+      </div>
+      <div class="col new">
+        <h3>With Verpex App Platform</h3>
+        <ul>
+          <li>git push and the site updates by itself</li>
+          <li>Every release is tied to a commit</li>
+          <li>Fixes go live in seconds</li>
+          <li>SSL, backups and support included</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="faq">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">FAQ</span>
+      <h2>Questions, answered</h2>
+    </div>
+    <div class="faq">
+      <details open>
+        <summary>Do I need to know DevOps to use it?</summary>
+        <p>No. If you can push to GitHub, you can deploy. Connect the repo, pick a branch and click Deploy now. We handle the servers.</p>
+      </details>
+      <details>
+        <summary>Where should my site files go in the repo?</summary>
+        <p>Put your public files (like index.html, CSS, JS and images) in a <code>public_html/</code> folder at the root of your repo. That folder is what visitors see.</p>
+      </details>
+      <details>
+        <summary>Does it work with private repositories?</summary>
+        <p>Yes. Once you connect your GitHub account, you can deploy both public and private repositories.</p>
+      </details>
+      <details>
+        <summary>What happens when I push a new commit?</summary>
+        <p>With auto deploy turned on, each push to your branch fetches that commit, releases it and serves it on your domain automatically.</p>
+      </details>
+      <details>
+        <summary>Can I run Node.js or Python apps?</summary>
+        <p>Yes. Use worker processes to run persistent app instances and background jobs. They restart automatically each time you deploy.</p>
+      </details>
+      <details>
+        <summary>Can I use my own domain?</summary>
+        <p>Absolutely. Point your domain to Verpex and your app is served on it, with a free SSL certificate.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <div class="cta-box">
+      <h2>Your next deploy is one click away</h2>
+      <p>Connect GitHub, push your code and watch it go live.</p>
+      <a href="../#pricing" class="btn btn-primary">Get started with App Platform</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="../" class="logo" style="margin-bottom:14px"><span class="logo-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5l8 14 8-14"/></svg></span>Verpex</a>
+        <p>Fast, secure and affordable web hosting for everyone.</p>
+      </div>
+      <div><h4>Hosting</h4><ul><li><a href="../">Web Hosting</a></li><li><a href="#">WordPress Hosting</a></li><li><a href="#">Reseller Hosting</a></li><li><a href="./">App Platform</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="#">About</a></li><li><a href="#">Blog</a></li><li><a href="#">Careers</a></li><li><a href="#">Contact</a></li></ul></div>
+      <div><h4>Support</h4><ul><li><a href="#">Help Center</a></li><li><a href="#">Server Status</a></li><li><a href="#">Terms</a></li><li><a href="#">Privacy</a></li></ul></div>
+    </div>
+    <div class="foot-bottom"><span>&copy; <span id="yr">2026</span> Verpex. All rights reserved.</span><span>Made with care for developers.</span></div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+document.querySelectorAll('#term .line').forEach(function(el, i){ el.style.animationDelay = (0.25 + i * 0.45) + 's'; });
+</script>
+</body>
+</html>
